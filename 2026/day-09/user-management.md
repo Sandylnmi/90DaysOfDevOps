@@ -24,3 +24,46 @@ Command: `chmod 775 dev-project`
 
 <img width="406" height="91" alt="image" src="https://github.com/user-attachments/assets/0af7b429-5247-44d9-8907-b33939b5f8a1" />
 <img width="657" height="598" alt="image" src="https://github.com/user-attachments/assets/277f58af-946c-480d-a9d2-19d9a59381b9" />
+
+<hr/>
+## Task
+
+- Create user nairobi with home directory
+
+  `sudo useradd -m nairobi`
+  `sudo passwd nairobi`
+
+- Create group project-team
+
+  `sudo groupadd project-team`
+  
+- Add nairobi and tokyo to project-team
+
+  `sudo usermod -aG project-team nairobi`
+  `sudo usermod -aG project-team tokyo`
+Verify - `getent group project-team`
+  
+- Create /opt/team-workspace directory
+
+  `sudo mkdir -p /opt/team-workspace`
+  
+- Set group to project-team, permissions to 775
+
+  `sudo chgrp project-team /opt/team-workspace`
+  `sudo chmod 775 /opt/team-workspace
+  
+- Test by creating file as nairobi
+
+  `su - nairobi`
+
+<img width="632" height="492" alt="image" src="https://github.com/user-attachments/assets/f7626ef7-8747-479f-9f9c-6bd775fb2753" />
+<img width="960" height="564" alt="image" src="https://github.com/user-attachments/assets/5dc9fd93-813a-4d13-b86e-3a4e729e7b3f" />
+
+* `useradd -m uname` - Create user in default directory - home
+* `sudo passwd uname` - Set password for user
+* `groupadd gname` - Add group
+* `sudo usermod -s /bin/bash username` - Change shell
+* `sudo usermod -aG group user` - Assign user to group
+* `sudo chgrp new_group directory/file ` - Change group ownership of a directory or file
+* `sudo chmod 775 file/directory` - Change permissions of a file or directory
+  
