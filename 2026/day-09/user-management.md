@@ -66,4 +66,6 @@ Verify - `getent group project-team`
 * `sudo usermod -aG group user` - Assign user to group
 * `sudo chgrp new_group directory/file ` - Change group ownership of a directory or file
 * `sudo chmod 775 file/directory` - Change permissions of a file or directory
+  <hr/>
+  <img width="651" height="533" alt="image" src="https://github.com/user-attachments/assets/7347f86f-7b32-47e8-afa3-f9427d5faed5" />
   
