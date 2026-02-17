@@ -55,7 +55,7 @@ Create backup.sh that:
   - Calls your log rotation function
   - Calls your backup function
   - Logs all output to /var/log/maintenance.log with timestamps
-  - Write the cron entry to run it daily at 1 AM
+  - Write the cron entry to run it daily at 1 AM : `0 1 * * *`
 
 <img width="945" height="304" alt="image" src="https://github.com/user-attachments/assets/42bbdd37-ce3b-44db-b4a7-81285a1c6909" />
 
