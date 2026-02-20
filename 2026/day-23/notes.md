@@ -47,6 +47,15 @@ In your `devops-git-practice` repo, perform the following:
 5. Verify both branches are visible on GitHub
 6. Answer in  notes: What is the difference between origin and upstream?
 
+`In Git, origin and upstream are both names for remote repositories, but they serve different purposes in a developer's workflow, particularly when working with forks.` 
+
+* origin - Points to our remote repository --  is the default remote repository that you cloned from (usually your own fork on GitHub).
+
+* upstream - Points to the repository we forked from - If not forked then no need of upstream -- is a convention-based name for the original, main repository that you forked from, which you use to keep your project updated
+
+<img width="681" height="553" alt="image" src="https://github.com/user-attachments/assets/fbfc5555-224a-4aa8-a7b1-8d3def9ff78e" />
+<img width="832" height="690" alt="image" src="https://github.com/user-attachments/assets/bf7fe6dd-fa6e-485b-9397-4bf9763aa077" />
+
 <hr/>
 
 ## Task 4: Pull from GitHub
@@ -54,6 +63,11 @@ In your `devops-git-practice` repo, perform the following:
 1. Make a change to a file directly on GitHub (use the GitHub editor)
 2. Pull that change to your local repo
 3. Answer in your notes: What is the difference between git fetch and git pull?
+
+`The main difference is that git fetch downloads remote changes without modifying your local working branch, while git pull downloads and automatically merges the changes into your current branch. 
+The git pull command is essentially a shortcut for running git fetch followed by git merge.`
+
+<img width="637" height="328" alt="image" src="https://github.com/user-attachments/assets/cdbe9e13-f06f-4fde-ab02-82da7e2e339b" />
 
 <hr/>
 
@@ -63,5 +77,26 @@ In your `devops-git-practice` repo, perform the following:
 2. **Fork** the same repository on GitHub, then clone your fork
 3. Answer in your notes:
    - What is the difference between clone and fork?
+     * Clone - Clone means copying repository to your local computer. It is connected with remote. Creates a copy of a remote repository on your local machine. It is a standard Git command (git clone) used to download a project's files, history, and branches so you can work on them offline.
+       
+     * Fork - Copying someone else’s repository into your own GitHub account. Creates a personal copy of a repository on the hosting service's server (e.g., GitHub, GitLab) under your own account. It is a platform-specific feature, not a native Git command.
+
+<img width="695" height="356" alt="image" src="https://github.com/user-attachments/assets/9ca29cde-4943-409c-8b3e-c6ae70865608" />
+
    - When would you clone vs fork?
+
+     `When to Clone`
+      
+      * Direct Access: You have direct write permissions to the repository (e.g., your team's private project).
+      * Local Development: You want to work on, test, or run code immediately on your computer.
+      * One-time Usage: You only need a copy for a short period and do not intend to manage a separate, long-term version
+  
+     `When to Fork`
+     
+      * Contributing to Open Source: You want to contribute to a project where you lack write access.
+      * Independent Development: You want to experiment or diverge from the original project without impacting it.
+      * Portfolio Management: You want to keep a copy of a project on your own profile to show in your portfolio
+   
    - After forking, how do you keep your fork in sync with the original repo
+     
+     ```To keep your fork in sync with the original repository (upstream), add the original repo as a remote, fetch its changes, and merge them into your local branch. The fastest method is using the "Sync fork" button on the GitHub repository page.```
