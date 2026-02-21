@@ -43,6 +43,9 @@ Research the following branching strategies and document each in your notes with
 - When/where it's used
 - Pros and cons
 
+<img width="658" height="444" alt="image" src="https://github.com/user-attachments/assets/ffd5a7e0-2119-41c2-8bc2-3f6609677992" />
+<img width="894" height="171" alt="image" src="https://github.com/user-attachments/assets/539385d3-7d78-4582-b9c8-3a497f7f125b" />
+
 1. **GitFlow** — develop, feature, release, hotfix branches
 2. **GitHub Flow** — simple, single main branch + feature branches
 3. **Trunk-Based Development** — everyone commits to main, short-lived branches
