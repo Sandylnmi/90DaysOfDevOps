@@ -140,12 +140,26 @@
 2. Now imagine you need to urgently switch to another branch — try switching. What happens?
 3. Use `git stash` to save your work-in-progress
 4. Switch to another branch, do some work, switch back
+
+<img width="626" height="439" alt="image" src="https://github.com/user-attachments/assets/b90f1f44-586d-41f8-bcdd-263fa3212d33" />
+
 5. Apply your stashed changes using `git stash pop`
 6. Try stashing multiple times and list all stashes
 7. Try applying a specific stash from the list
+
+<img width="619" height="585" alt="image" src="https://github.com/user-attachments/assets/81c92bc2-d7a4-457f-ac08-41e3be127957" />
+
 8. Answer in your notes:
    - What is the difference between `git stash pop` and `git stash apply`?
-   - When would you use stash in a real-world workflow?
+      * The main difference is that `git stash pop` applies the stashed changes to your working directory and then removes the stash entry from the stash list, while git `stash apply applies` the changes but leaves the stash in the list.
+      * `git stash pop` applies stash changes to your working directory and deletes the stash entry.
+      * `git stash apply` applies stash changes to your working directory but keeps the stash entry.
+        
+    - When would you use stash in a real-world workflow?
+      * git stash is used to temporarily "shelve" or "stash" changes you've made to your working directory so you can work on something else, and then come back and re-apply them later. It is essential for maintaining a clean working directory without committing unfinished, messy, or broken code.
+      *  Use `git stash` to save your work, switch to the main branch, fix the bug, commit it, and then switch back to your feature branch and use git stash pop to resume. 
+
+   <img width="504" height="525" alt="image" src="https://github.com/user-attachments/assets/26425fc6-8da2-4c6d-8eb1-2ba70c042a04" />
 
 <hr/>
 
@@ -154,8 +168,27 @@
 1. Create a branch `feature-hotfix`, make 3 commits with different changes
 2. Switch to `main`
 3. Cherry-pick **only the second commit** from `feature-hotfix` onto `main`
+
+<img width="513" height="90" alt="image" src="https://github.com/user-attachments/assets/92811052-afbf-4b33-8138-c567ed9683bd" />
+
 4. Verify with `git log` that only that one commit was applied
+
+<img width="602" height="395" alt="image" src="https://github.com/user-attachments/assets/0ea337de-8d17-47aa-80b5-ba45f6f67efa" />
+
 5. Answer in your notes:
    - What does cherry-pick do?
+      * In Git, `git cherry-pick` is a command that applies a specific commit from one branch onto your current HEAD branch.
+      * It allows you to select individual, targeted changes (like a hotfix) rather than merging or rebasing an entire branch.
+      * It is useful for moving mistakes to the correct branch or applying specific features, but can create duplicate commits if overused.
+      * In Git, `git cherry-pick` is a powerful command that allows you to select specific commits from one branch and apply them individually to your current branch. 
+
    - When would you use cherry-pick in a real project?
+      * In a real project, you would use git cherry-pick to apply specific, individual commits from one branch onto another without merging the entire branch.
+      * It is commonly used for moving a critical bug fix from a development branch to a production release branch, fixing a commit made to the wrong branch, or pulling specific features into a shared branch
+
    - What can go wrong with cherry-picking?
+      * Cherry-picking—the act of selecting only favorable data while ignoring contradictory evidence—leads to distorted, inaccurate, and misleading conclusions.
+      * It undermines credibility, creates a false sense of reality, and can lead to bad decision-making in business, science, and daily life. It is often a form of confirmation bias.
+      * If the same branch is merged then it will create duplicate commits.
+      * It may create conflicts if the commit depends on previous commits.
+
