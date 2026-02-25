@@ -20,15 +20,20 @@ Research and write short notes on:
 
 <img width="647" height="345" alt="image" src="https://github.com/user-attachments/assets/5ba68d17-6626-4f2d-9e6d-e7ffd5e31945" />
 
+
 - What is the Docker architecture? (daemon, client, images, containers, registry)
+   * `Docker Daemon:` This is the background service (dockerd) running on the host machine that manages all Docker objects like images, containers, networks, and storage volumes. It listens for API requests from the client and executes the necessary actions.
+   * `Docker Client:` This is the primary way users interact with Docker, typically through a command-line interface (CLI). The client sends commands, such as docker run or docker pull, to the Docker daemon.
+   * `Docker Images:` Images are read-only templates that contain the application code, libraries, dependencies, and configuration files required to run an application. They are built from a Dockerfile and serve as the blueprint for containers. Images are layered, making them efficient to store and transfer.
+   * `Docker Containers:` A container is a runnable, isolated instance of a Docker image. It includes everything needed to run the application and shares the host machine's operating system kernel, making it lightweight and fast. You can create, start, stop, and delete containers using the Docker API or CLI.
+   * `Docker Registry:` This is a stateless, scalable storage and distribution system for Docker images. The default public registry is Docker Hub. When a user runs docker pull or docker run, the daemon retrieves the required image from the registry. The docker push command uploads an image to a registry.
 
-
-
-
-<img width="595" height="323" alt="image" src="https://github.com/user-attachments/assets/b117100e-67e9-4021-8946-c6e953f88c3e" />
-<img width="771" height="908" alt="image" src="https://github.com/user-attachments/assets/6e64c7c5-f19c-4103-b65a-2288e8cac375" />
-
-Draw or describe the Docker architecture in your own words.
+Workflow
+ * Pulling: When you run docker pull, the client tells the daemon to fetch a specific image from a registry.
+ * Building: Using docker build, the client sends a Dockerfile (a text file with instructions) to the daemon, which assembles a new image layer by layer.
+ * Running: When you execute docker run, the daemon checks for the image locally, pulls it if necessary, and then creates and starts a container.
+   
+<img width="647" height="645" alt="image" src="https://github.com/user-attachments/assets/6e64c7c5-f19c-4103-b65a-2288e8cac375" />
 
 ---
 
@@ -38,14 +43,26 @@ Draw or describe the Docker architecture in your own words.
 3. Run the `hello-world` container
 4. Read the output carefully — it explains what just happened
 
+<img width="593" height="468" alt="image" src="https://github.com/user-attachments/assets/2b97a886-057d-4e99-a71f-ef93bcf5aba7" />
+
 ---
 
 ### Task 3: Run Real Containers
 1. Run an **Nginx** container and access it in your browser
+<img width="786" height="261" alt="image" src="https://github.com/user-attachments/assets/89d5531f-ff6a-4f34-86c7-415182376801" />
+<img width="918" height="679" alt="image" src="https://github.com/user-attachments/assets/bdc88127-09cf-4ba0-8b9c-5d978d72e88d" />
+
 2. Run an **Ubuntu** container in interactive mode — explore it like a mini Linux machine
+<img width="626" height="83" alt="image" src="https://github.com/user-attachments/assets/45248d15-4734-408e-8d48-559925218a42" />
+
 3. List all running containers
 4. List all containers (including stopped ones)
+<img width="794" height="148" alt="image" src="https://github.com/user-attachments/assets/311855e7-4d34-4ada-9526-1766dd642e33" />
+
 5. Stop and remove a container
+<img width="436" height="57" alt="image" src="https://github.com/user-attachments/assets/92efcf66-5668-4462-86f3-84a92818489c" />
+
+<img width="754" height="330" alt="image" src="https://github.com/user-attachments/assets/cc360f2e-e820-4e90-a205-963248ed5a39" />
 
 ---
 
