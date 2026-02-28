@@ -68,6 +68,7 @@ Workflow
 
 ### Task 4: Explore
 1. Run a container in **detached mode** — what's different?
+   
   Running a Docker container in detached mode (-d or --detach) runs it in the background, releasing your terminal immediately.
   Unlike the default foreground mode, it doesn't display container output, allowing continued terminal use.
   Key Differences When Running Detached (-d)
@@ -85,6 +86,7 @@ Workflow
    * Stop: Use docker stop <container_id>. 
 
 2. Give a container a custom **name**
+   
    To give a container a custom name in Docker, use the `--name` flag when running or creating the container. We can also rename an existing container using the `docker rename` command. 
    `Eg:- docker run --name <custom_name> <image_name>`
    
