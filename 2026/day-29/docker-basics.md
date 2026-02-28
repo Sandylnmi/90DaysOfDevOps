@@ -68,7 +68,35 @@ Workflow
 
 ### Task 4: Explore
 1. Run a container in **detached mode** — what's different?
+  Running a Docker container in detached mode (-d or --detach) runs it in the background, releasing your terminal immediately.
+  Unlike the default foreground mode, it doesn't display container output, allowing continued terminal use.
+  Key Differences When Running Detached (-d)
+   * Background Operation: The container runs independently of your terminal session, allowing you to continue using the command line.
+   * No Terminal Output: The container's stdout and stderr are not displayed, but you can view them later using the docker logs command.
+   * Non-interactive: You cannot send input to the container (stdin).
+   * Fast Return to Prompt: Instead of locking your screen with logs, Docker returns the container ID immediately.
+   * Independent Lifecycle: Closing the terminal does not stop the container.
+   * Signal Handling: Pressing Ctrl+c in the terminal will not stop the container, whereas in attached mode it will (by sending SIGINT).
+
+ How to Manage Detached Containers.
+   * View Running: Use docker ps to see the container.
+   * View Logs: Use docker logs -f <container_id> to watch logs in real-time.
+   * Reattach: Use docker attach <container_id to bring it back to the foreground.
+   * Stop: Use docker stop <container_id>. 
+
 2. Give a container a custom **name**
+   To give a container a custom name in Docker, use the `--name` flag when running or creating the container. We can also rename an existing container using the `docker rename` command. 
+   `Eg:- docker run --name <custom_name> <image_name>`
+   
 3. Map a **port** from the container to your host
+   <img width="722" height="448" alt="image" src="https://github.com/user-attachments/assets/d71dc2b1-5e52-43c9-8846-8944a572487f" />
+   <img width="956" height="90" alt="image" src="https://github.com/user-attachments/assets/a2b12c87-6b5e-420d-bd81-e0b332380e6b" />
+
 4. Check **logs** of a running container
+   <img width="715" height="300" alt="image" src="https://github.com/user-attachments/assets/d1eee643-dcf0-461b-9bf8-0204c8170d6a" />
+
 5. Run a command **inside** a running container
+  <img width="795" height="298" alt="image" src="https://github.com/user-attachments/assets/e90fd98e-84bb-45d3-9220-60a4fbe7fbf9" />
+
+
+   
