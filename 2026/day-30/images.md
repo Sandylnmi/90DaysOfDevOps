@@ -13,6 +13,7 @@
   * Ubuntu is a full-featured, widely compatible Linux distribution ideal for complex applications, while Alpine Linux is an ultra-lightweight (5MB), security-focused distro designed for minimal container footprint.
   * Use Alpine if: You are building Docker images where image size, quick deployment, and minimal resource usage are priorities.
   * Use Ubuntu if: You need maximum compatibility, a vast library of pre-installed tools, or are less concerned with container size and more with developer familiarity.
+
     <img width="616" height="331" alt="image" src="https://github.com/user-attachments/assets/1974b727-7a06-45be-bcac-554ff6aaaeb4" />
  
 4. Inspect an image — what information can you see?
