@@ -6,7 +6,8 @@
    <img width="664" height="110" alt="image" src="https://github.com/user-attachments/assets/6c761087-b7af-4687-857b-829d429fa558" />
 
 2. List all images on your machine — note the sizes
-    <img width="550" height="113" alt="image" src="https://github.com/user-attachments/assets/8d864564-b7e4-4c71-a5f8-2508d73d32c2" />
+    
+   img width="550" height="113" alt="image" src="https://github.com/user-attachments/assets/8d864564-b7e4-4c71-a5f8-2508d73d32c2" />
 
 3. Compare `ubuntu` vs `alpine` — why is one much smaller?
   * Ubuntu is a full-featured, widely compatible Linux distribution ideal for complex applications, while Alpine Linux is an ultra-lightweight (5MB), security-focused distro designed for minimal container footprint.
