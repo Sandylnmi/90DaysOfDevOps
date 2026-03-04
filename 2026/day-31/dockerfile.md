@@ -76,6 +76,8 @@ Build and run it. Understand what each line does.
 2. Add entries for: `node_modules`, `.git`, `*.md`, `.env`
 3. Build the image — verify that ignored files are not included
 
+<img width="311" height="199" alt="image" src="https://github.com/user-attachments/assets/273d0a4e-0321-46de-9ac5-b01124c873fb" />
+<img width="619" height="633" alt="image" src="https://github.com/user-attachments/assets/6aac10cf-7304-4a3e-aec6-bd3d257cb6b6" />
 
 
 ---
