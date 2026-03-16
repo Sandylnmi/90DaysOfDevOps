@@ -52,7 +52,8 @@ Types of Docker Volumes
 <img width="1101" height="541" alt="image" src="https://github.com/user-attachments/assets/e724c965-8cf2-4c3a-9e7f-fd0a26339976" />
 
 **Verify:** `docker volume ls`, `docker volume inspect`
-  
+
+
 
 ---
 
