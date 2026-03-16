@@ -45,7 +45,14 @@ Types of Docker Volumes
 4. Run a brand new container with the **same volume**
 5. Is the data still there?
 
+<img width="1101" height="562" alt="image" src="https://github.com/user-attachments/assets/f575de12-c0a6-48cc-b6f9-4cad511ca819" />
+<img width="1105" height="185" alt="image" src="https://github.com/user-attachments/assets/7bad4649-3870-4dfe-a351-931ab53d5daf" />
+<img width="1101" height="465" alt="image" src="https://github.com/user-attachments/assets/867e6556-171f-4040-9d6b-ac3cb290365b" />
+<img width="1105" height="124" alt="image" src="https://github.com/user-attachments/assets/e470ba47-c62e-4fad-bdcc-e2c0e5ce2e3c" />
+<img width="1101" height="541" alt="image" src="https://github.com/user-attachments/assets/e724c965-8cf2-4c3a-9e7f-fd0a26339976" />
+
 **Verify:** `docker volume ls`, `docker volume inspect`
+  
 
 ---
 
