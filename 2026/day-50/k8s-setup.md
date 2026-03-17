@@ -61,13 +61,33 @@ Originally developed by Google as an open-source platform, it functions as a "ca
 
 - Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services that facilitate both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 
-
 ---
 
 ### Task 2: Draw the Kubernetes Architecture
 From memory, draw or describe the Kubernetes architecture. Your diagram should include:
 
-https://miro.medium.com/v2/resize:fit:875/1*130HH_eLLwyiKSr2SlZSCA.png
+<img width="1098" height="574" alt="image" src="https://github.com/user-attachments/assets/3e4e6207-cc3e-4697-b19c-289553e77158" />
+
+A **Kubernetes cluster** is built on a client-server architecture consisting of a Control Plane `(the "brain")` that manages a set of Worker Nodes `(the "hands")`. The user interacts with the control plane, which then orchestrates the deployment and management of containerized applications on the worker nodes.
+
+1. `The Control Plane (Master Node)`
+  The Control Plane makes global decisions about the cluster and detects and responds to cluster events. Its core components include.
+  - kube-apiserver: The "front door" for the cluster. All internal and external communications (like kubectl commands) pass through this API.
+  - etcd: A highly available key-value store that acts as the cluster's "memory," storing all configuration data and the cluster state.
+  - kube-scheduler: The "decision maker" that assigns newly created Pods to available worker nodes based on resource requirements and constraints.
+  - kube-controller-manager: The "automation engine" that runs control loops to maintain the desired state (e.g., ensuring the right number of Pods are running).
+  - cloud-controller-manager: An optional component that links your cluster to a cloud provider's API (e.g., AWS, GCP, or Azure). 
+
+2. `Worker Nodes`
+Worker nodes are the machines (physical or virtual) where your applications actually run. Every node contains.
+  - kubelet: An agent that ensures containers are running in a Pod as specified by the Control Plane
+  - kube-proxy: A network proxy that manages network rules on the node, allowing communication to your Pods from inside or outside the cluster.
+  - Container Runtime: The software responsible for running containers. Modern Kubernetes clusters typically use containerd or CRI-O rather than Docker. 
+
+3. `Key Workload Objects`
+  - Pods: The smallest deployable unit in Kubernetes, typically containing a single container.
+  - Services: Provides a stable IP address and DNS name to access a group of Pods, enabling load balancing.
+  - Deployments: Describes the "desired state" of your application, allowing for automated rollouts and self-healing. 
 
 **Control Plane (Master Node):**
 - API Server — the front door to the cluster, every command goes through it
@@ -81,9 +101,64 @@ https://miro.medium.com/v2/resize:fit:875/1*130HH_eLLwyiKSr2SlZSCA.png
 - Container Runtime — the engine that actually runs containers (containerd, CRI-O)
 
 After drawing, verify your understanding:
-- What happens when you run `kubectl apply -f pod.yaml`? Trace the request through each component.
-- What happens if the API server goes down?
-- What happens if a worker node goes down?
+1. `What happens when you run `kubectl apply -f pod.yaml`? Trace the request through each component.`
+  When we run `kubectl apply -f pod.yaml`, Kubernetes performs a declarative update to bring the cluster's actual state in line with the "desired state" defined in your file. Unlike kubectl create, which strictly attempts to make a new resource and fails if it already exists, apply is idempotent: it creates the resource if it’s missing or updates it if it’s already there.
+
+**The Core Mechanism: Three-Way Merge**
+To determine exactly what needs to change, Kubernetes uses a "three-way merge" process: 
+  - Local Configuration: The YAML file you just provided.
+  - Live Object Configuration: The current state of the resource as it exists in the cluster.
+  - Last Applied Configuration: A record of the YAML used the last time you ran apply. This is stored as a JSON string in an annotation called kubectl.kubernetes.io/last-applied-configuration on the live object
+
+2. `What happens if the API server goes down?`
+When an API server goes down, the primary consequence is a service disruption where dependent applications and users can no longer   communicate with the backend service to exchange data or perform tasks.
+The exact impact depends on the API's function and how the failure is handled by client applications and system design.
+  - Immediate Technical Impacts : Failed Requests: Clients attempting to interact with the API will receive error responses, commonly a timeout or an HTTP 500 Internal Server Error.
+  - Service Unavailability: If the API is for a critical function (e.g., payments, user authentication), the entire service or dependent features may become completely unavailable.
+  - Partial Failures: For applications that rely on multiple APIs, only the features dependent on the downed server will fail, leading to an inconsistent user experience.
+  - System Instability: In complex systems like Kubernetes clusters, the API server is a central control point. Its failure means crucial components like the scheduler, node manager, and autoscaler stop functioning correctly, affecting the entire cluster management process.
+  - Loss of Monitoring Access: External monitoring and logging systems may lose access to the server's data, making it harder to detect and diagnose the problem. 
+
+  **Business and User Experience Impacts**
+    - Revenue Loss: Businesses can lose significant revenue if customers are unable to access products, complete purchases, or use paid services.
+    - Negative User Experience (UX): Users will encounter broken features, error messages, or slow performance, leading to frustration.
+    - Erosion of Trust and Reputation: Frequent or prolonged outages can damage a company's reputation and lead to customer churn as users look for more reliable alternatives.
+    - Operational Delays: Internal business processes that rely on the API for data exchange (e.g., inventory management, supply chain logistics) can face significant bottlenecks.
+
+  **Mitigation and Best Practices**
+  Organizations employ several strategies to minimize the impact of API server downtime:
+  - Timeouts and User Notification: Clients can implement request timeouts and notify the user with a friendly message (e.g., "Something went wrong, please try again later") rather than letting the application hang indefinitely.
+  - Redundancy and Failover: Running multiple instances of the API server across different locations (active-active failover) ensures that if one fails, traffic is seamlessly rerouted to a healthy instance.
+  - Load Balancing and Health Checks: Load balancers distribute incoming requests and perform continuous health checks to automatically avoid sending traffic to failed servers.
+  - Rate Limiting and Throttling: These mechanisms prevent a single client from overwhelming the server with too many requests, which can cause an outage for all users.
+  - Automated Monitoring and Recovery: Robust monitoring systems can detect issues early and automatically trigger recovery actions, such as restarting processes or scaling resources, often without human intervention.
+
+3. `What happens if a worker node goes down?`
+  When a **worker node** goes down in a Kubernetes cluster, the control plane detects the failure and automatically works to maintain the desired state of the application by rescheduling workloads.
+  The specific behavior depends on the configuration, but generally follows a defined process of detection, marking, and eviction.
+<img width="662" height="231" alt="image" src="https://github.com/user-attachments/assets/ec3a8b4a-ccb5-4ef8-899f-1c2e692190ec" />
+
+1. Detection and Status Change
+  - Heartbeat Failure: The master node (control plane) stops receiving heartbeats from the worker node's kubelet.
+  - NotReady Status: After roughly 1 minute of silence, the node is marked as NotReady in the cluster.
+  - Pod Status: After about 5 minutes (default pod-eviction-timeout), pods on that node are marked as Unknown or NodeLost.
+    
+2. Workload Rescheduling (Self-Healing)
+  - Eviction: The control plane begins terminating the pods on the unreachable node.
+  - Rescheduling: Kubernetes attempts to create new instances of these pods on other healthy worker nodes. 
+DaemonSets & StatefulSets: 
+  - DaemonSets will continue to run one pod on all other remaining nodes.
+  - StatefulSets are treated carefully; the system will not move them until it is certain the old pod is truly gone, to prevent data corruption.
+
+3. Impact on Applications
+  - Temporary Downtime: Applications running on the failed node will be unavailable until their replacements are running on other nodes.
+  - Traffic Shift: If you are using a Service, it will stop routing traffic to the pods on the broken node and redirect it to the newly scheduled pods.
+  - Storage Issues: If a pod uses Read-Write-Once (RWO) persistent volumes, the new pod may get stuck in ContainerCreating because the
+  - volume is still "attached" to the failed node. The system usually fixes this after a 6-minute timeout. 
+
+4. Recovery
+  - Node Restart: If the node is rebooted, kubelet will reconnect, the NotReady status will be removed, and it will rejoin the cluster.
+  - Automatic Replacement: In cloud environments (EKS, GKE, AKS), if the node does not recover, the auto-scaler will typically terminate the broken node and provision a new one to maintain the desired capacity. 
 
 ---
 
@@ -91,65 +166,47 @@ After drawing, verify your understanding:
 `kubectl` is the CLI tool you will use to talk to your Kubernetes cluster.
 
 Install it:
-```bash
-# macOS
-brew install kubectl
-
+```
 # Linux (amd64)
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
-
-# Windows (with chocolatey)
-choco install kubernetes-cli
 ```
+
+<img width="850" height="105" alt="image" src="https://github.com/user-attachments/assets/ac0d3975-afed-4fba-aa74-dac9990373c6" />
 
 Verify:
 ```bash
 kubectl version --client
 ```
+<img width="850" height="105" alt="image" src="https://github.com/user-attachments/assets/4fd00a5b-297c-4e6b-aa20-f54e997e79ff" />
 
 ---
 
 ### Task 4: Set Up Your Local Cluster
-Choose **one** of the following. Both give you a fully functional Kubernetes cluster on your machine.
-
-**Option A: kind (Kubernetes in Docker)**
-```bash
-# Install kind
-# macOS
-brew install kind
-
+```
 # Linux
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
+```
 
+<img width="736" height="72" alt="image" src="https://github.com/user-attachments/assets/6f05fb39-3f36-4212-b44f-9c80f4725ad8" />
+
+```
 # Create a cluster
 kind create cluster --name devops-cluster
+```
+<img width="955" height="233" alt="image" src="https://github.com/user-attachments/assets/955317e7-77df-4a04-9766-6622d5c0afa9" />
+<img width="955" height="99" alt="image" src="https://github.com/user-attachments/assets/8d4dc0fe-3ca8-4a06-83f7-916d416d4ff7" />
 
+```
 # Verify
 kubectl cluster-info
 kubectl get nodes
 ```
+<img width="1045" height="178" alt="image" src="https://github.com/user-attachments/assets/656177a0-bbdd-48b5-a32e-7886cd370a14" />
 
-**Option B: minikube**
-```bash
-# Install minikube
-# macOS
-brew install minikube
-
-# Linux
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-
-# Start a cluster
-minikube start
-
-# Verify
-kubectl cluster-info
-kubectl get nodes
-```
 
 Write down: Which one did you choose and why?
 
@@ -174,6 +231,10 @@ kubectl get namespaces
 # See ALL pods running in the cluster (across all namespaces)
 kubectl get pods -A
 ```
+<img width="955" height="233" alt="image" src="https://github.com/user-attachments/assets/955317e7-77df-4a04-9766-6622d5c0afa9" />
+<img width="955" height="99" alt="image" src="https://github.com/user-attachments/assets/8d4dc0fe-3ca8-4a06-83f7-916d416d4ff7" />
+<img width="1101" height="147" alt="image" src="https://github.com/user-attachments/assets/505c6f79-3cd0-4c7f-8c0b-851b9034cda0" />
+<img width="996" height="563" alt="image" src="https://github.com/user-attachments/assets/7f63204c-570d-4e85-8f52-51cb4456bccc" />
 
 Look at the pods running in the `kube-system` namespace:
 ```bash
