@@ -236,14 +236,21 @@ kubectl get pods -A
 <img width="1101" height="147" alt="image" src="https://github.com/user-attachments/assets/505c6f79-3cd0-4c7f-8c0b-851b9034cda0" />
 <img width="996" height="563" alt="image" src="https://github.com/user-attachments/assets/7f63204c-570d-4e85-8f52-51cb4456bccc" />
 
+<img width="843" height="160" alt="image" src="https://github.com/user-attachments/assets/219b4a70-494f-49e8-9184-6255339bd7d4" />
+<img width="1102" height="452" alt="image" src="https://github.com/user-attachments/assets/8f0187c2-0ec3-4d4c-b596-16d2b02d33ce" />
+<img width="1100" height="471" alt="image" src="https://github.com/user-attachments/assets/b82ab8e7-9b73-4b86-8452-e922bf3eebbb" />
+<img width="1104" height="561" alt="image" src="https://github.com/user-attachments/assets/2460637a-d00b-4816-9698-6e03e6d7fe74" />
+<img width="1087" height="362" alt="image" src="https://github.com/user-attachments/assets/33b5b86f-5db3-4ac5-98fb-54841556cc76" />
+
 Look at the pods running in the `kube-system` namespace:
 ```bash
 kubectl get pods -n kube-system
 ```
+<img width="1088" height="234" alt="image" src="https://github.com/user-attachments/assets/34438bdd-9a56-4bb2-ac6f-ca5f8cb8dcc2" />
 
 You should see pods like `etcd`, `kube-apiserver`, `kube-scheduler`, `kube-controller-manager`, `coredns`, and `kube-proxy`. These are the architecture components you drew in Task 2 — running as pods inside the cluster.
 
-**Verify:** Can you match each running pod in `kube-system` to a component in your architecture diagram?
+**Verify:** Can you match each running pod in `kube-system` to a component in your architecture diagram? - **YES**
 
 ---
 
@@ -262,6 +269,8 @@ kind create cluster --name devops-cluster
 # Verify it is back
 kubectl get nodes
 ```
+<img width="1108" height="324" alt="image" src="https://github.com/user-attachments/assets/5fb3b1ac-31dc-4e96-b3f1-b06d5a1bfda2" />
+<img width="1101" height="289" alt="image" src="https://github.com/user-attachments/assets/e6fc7c73-d349-40ff-908b-ad618cc06bf2" />
 
 Try these useful commands:
 ```bash
@@ -274,29 +283,16 @@ kubectl config get-contexts
 # See the full kubeconfig
 kubectl config view
 ```
+<img width="1103" height="382" alt="image" src="https://github.com/user-attachments/assets/21a5c59f-6b96-41aa-b980-51d2eb2940f0" />
 
-Write down: What is a kubeconfig? Where is it stored on your machine?
+`Write down: What is a kubeconfig? Where is it stored on your machine?`
 
----
-
-## Hints
-- kind requires Docker to be running (it creates clusters using containers)
-- minikube can use Docker, VirtualBox, or other drivers
-- The default kubeconfig file is at `~/.kube/config`
-- `kubectl get pods -A` is short for `kubectl get pods --all-namespaces`
-- If `kubectl` cannot connect, check if your cluster is running: `kind get clusters` or `minikube status`
-- `-o wide` flag gives extra details: `kubectl get nodes -o wide`
+- A kubeconfig is a YAML-formatted file that stores authentication and connection information (clusters, users, contexts) for kubectl to interact with Kubernetes clusters. 
+- It acts as a "connection string," allowing you to securely manage one or more clusters.
+- By default, it is stored in the hidden directory ~/.kube/config (Linux/macOS) or %USERPROFILE%\.kube\config (Windows).
 
 ---
 
-## Documentation
-Create `day-50-k8s-setup.md` with:
-- Kubernetes history in your own words (3-4 sentences)
-- Your architecture diagram (text-based or image)
-- Which tool you chose (kind/minikube) and why
-- Screenshot of `kubectl get nodes` and `kubectl get pods -n kube-system`
-- What each kube-system pod does
 
----
 
 
