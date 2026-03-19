@@ -155,6 +155,7 @@ You can also use dry-run to generate YAML without creating anything:
 ```bash
 kubectl run test-pod --image=nginx --dry-run=client -o yaml
 ```
+<img width="857" height="251" alt="image" src="https://github.com/user-attachments/assets/44a969f0-db1a-4599-b4c4-28cf2e4c4426" />
 
 This is a powerful trick — use it to quickly scaffold a manifest, then customize it.
 
@@ -172,10 +173,15 @@ kubectl apply -f nginx-pod.yaml --dry-run=client
 # Validate against the cluster's API (server-side validation)
 kubectl apply -f nginx-pod.yaml --dry-run=server
 ```
+<img width="700" height="84" alt="image" src="https://github.com/user-attachments/assets/bcca7cdb-39c2-4ccb-954e-b29d8aab068d" />
 
 Now intentionally break your YAML (remove the `image` field or add an invalid field) and run dry-run again. See what error you get.
 
 **Verify:** What error does Kubernetes give when the image field is missing?
+
+When the image field is missing from a container specification in a Kubernetes Pod, the API server will reject the request with a ValidationError. The specific error message indicates that the field is required for the container to be valid.
+
+_error: error validating "your-pod.yaml": error validating data: [ValidationError(Pod.spec.containers[0]): missing required field "image" in io.k8s.api.core.v1.Container, ...]_
 
 ---
 
@@ -199,9 +205,27 @@ kubectl get pods --show-labels
 # Remove a label
 kubectl label pod nginx-pod environment-
 ```
+<img width="702" height="122" alt="image" src="https://github.com/user-attachments/assets/602f1960-6854-4b1e-92ee-e056d7020c3a" />
+<img width="694" height="115" alt="image" src="https://github.com/user-attachments/assets/11c8a858-91d3-47d2-9043-93464f579b9b" />
+<img width="744" height="55" alt="image" src="https://github.com/user-attachments/assets/e3d3373e-f621-4432-bdaf-0907fda262fd" />
+<img width="851" height="122" alt="image" src="https://github.com/user-attachments/assets/ea3f1b14-81c4-44de-abcb-6d6f96ab9706" />
+<img width="703" height="115" alt="image" src="https://github.com/user-attachments/assets/10424756-8868-47c7-a649-e8fd5ff8308d" />
 
 Write a manifest for a third pod with at least 3 labels (app, environment, team). Apply it and practice filtering.
-
+```
+kind: Pod
+apiVersion: v1
+metadata:
+  name: third-pod
+  labels:
+    app: frontend
+    environment: production
+    team: devops
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+```
 ---
 
 ### Task 6: Clean Up
@@ -219,6 +243,7 @@ kubectl delete -f nginx-pod.yaml
 # Verify everything is gone
 kubectl get pods
 ```
+<img width="649" height="268" alt="image" src="https://github.com/user-attachments/assets/9554b6e9-17c6-4312-93ba-dac22d7defbb" />
 
 Notice that when you delete a standalone Pod, it is gone forever. There is no controller to recreate it. This is why in production you use Deployments (coming on Day 52) instead of bare Pods.
 
