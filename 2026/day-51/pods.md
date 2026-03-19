@@ -121,6 +121,7 @@ kubectl apply -f busybox-pod.yaml
 kubectl get pods
 kubectl logs busybox-pod
 ```
+<img width="666" height="152" alt="image" src="https://github.com/user-attachments/assets/90d6234f-c890-4060-90a4-0b4035197992" />
 
 Notice the `command` field — BusyBox does not run a long-lived server like Nginx. Without a command that keeps it running, the container would exit immediately and the pod would go into `CrashLoopBackOff`.
 
@@ -138,11 +139,15 @@ kubectl run redis-pod --image=redis:latest
 # Check it
 kubectl get pods
 ```
+<img width="690" height="119" alt="image" src="https://github.com/user-attachments/assets/b35f1f11-b5eb-4d67-9f8c-108289e7b993" />
+<img width="641" height="111" alt="image" src="https://github.com/user-attachments/assets/9e1e78ab-a6d4-4c3e-b75e-ecfcb0fab740" />
 
 Now extract the YAML that Kubernetes generated:
 ```bash
 kubectl get pod redis-pod -o yaml
 ```
+<img width="871" height="530" alt="image" src="https://github.com/user-attachments/assets/be0ea78d-7a4a-4cd6-a976-428145b8a931" />
+<img width="965" height="543" alt="image" src="https://github.com/user-attachments/assets/19a7a7df-daba-40b3-b0b0-28813f8a26f2" />
 
 Compare this output with your hand-written manifests. Notice how much extra metadata Kubernetes adds automatically (status, timestamps, uid, resource version).
 
