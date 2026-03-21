@@ -173,6 +173,7 @@ spec:
 kubectl apply -f nodeport-service.yaml
 kubectl get services
 ```
+<img width="1107" height="285" alt="image" src="https://github.com/user-attachments/assets/cae36f05-a3e0-4a60-a26e-82259014ea34" />
 
 Access the service:
 ```bash
