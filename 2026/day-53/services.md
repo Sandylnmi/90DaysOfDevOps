@@ -133,10 +133,16 @@ wget -qO- http://web-app-clusterip.default.svc.cluster.local
 nslookup web-app-clusterip
 exit
 ```
+<img width="1106" height="424" alt="image" src="https://github.com/user-attachments/assets/cec5aeb9-172b-4986-adf9-1e06a321bee5" />
+<img width="1103" height="367" alt="image" src="https://github.com/user-attachments/assets/ff8e8eb5-f172-4e81-b68f-293394221fe2" />
+<img width="1100" height="265" alt="image" src="https://github.com/user-attachments/assets/e305e5fe-ca0b-4de2-a862-d468b0aab0d3" />
 
 Both the short name and the full DNS name resolve to the same ClusterIP. In practice, you use the short name when communicating within the same namespace and the full name when reaching across namespaces.
 
 **Verify:** What IP does `nslookup` return? Does it match the CLUSTER-IP from `kubectl get services`?
+
+- Yes, when we run nslookup on a Kubernetes service name from within the cluster (specifically from a Pod), it resolves to the exact same CLUSTER-IP that is listed in the output of kubectl get services.
+- The nslookup command, when used inside a Pod with the appropriate DNS configuration, queries the cluster's DNS service (like CoreDNS or kube-dns) and returns the A record for the service. 
 
 ---
 
