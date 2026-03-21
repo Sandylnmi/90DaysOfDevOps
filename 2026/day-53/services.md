@@ -142,7 +142,7 @@ Both the short name and the full DNS name resolve to the same ClusterIP. In prac
 **Verify:** What IP does `nslookup` return? Does it match the CLUSTER-IP from `kubectl get services`?
 
 - Yes, when we run nslookup on a Kubernetes service name from within the cluster (specifically from a Pod), it resolves to the exact same CLUSTER-IP that is listed in the output of kubectl get services.
-- The nslookup command, when used inside a Pod with the appropriate DNS configuration, queries the cluster's DNS service (like CoreDNS or kube-dns) and returns the A record for the service. 
+- The nslookup command, when used inside a Pod with the appropriate DNS configuration, queries the cluster's DNS service (like CoreDNS or kube-dns) and returns the A record for the service.
 
 ---
 
