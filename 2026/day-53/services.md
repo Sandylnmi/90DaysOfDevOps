@@ -308,27 +308,3 @@ Only the built-in `kubernetes` service in the default namespace should remain.
 
 ---
 
-## Documentation
-Create `day-53-services.md` with:
-- What problem Services solve and how they relate to Pods and Deployments
-- Your three Service manifests with an explanation of each type
-- The difference between ClusterIP, NodePort, and LoadBalancer
-- How Kubernetes DNS works for service discovery
-- What Endpoints are and how to inspect them
-- Screenshot of your services and the test output
-
----
-
-## Submission
-1. Add `day-53-services.md` and your YAML files to `2026/day-53/`
-2. Commit and push to your fork
-
----
-
-## Learn in Public
-Share on LinkedIn: "Learned Kubernetes Services today — ClusterIP for internal traffic, NodePort for node-level access, and LoadBalancer for production. Services give Pods a stable identity and load balancing."
-
-`#90DaysOfDevOps` `#DevOpsKaJosh` `#TrainWithShubham`
-
-Happy Learning!
-**TrainWithShubham**
