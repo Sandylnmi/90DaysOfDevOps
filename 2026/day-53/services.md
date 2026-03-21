@@ -215,6 +215,7 @@ spec:
 kubectl apply -f loadbalancer-service.yaml
 kubectl get services
 ```
+<img width="1080" height="154" alt="image" src="https://github.com/user-attachments/assets/33c3ebd2-e0d0-4a44-815d-b03830c71287" />
 
 On a local cluster (Minikube, Kind, Docker Desktop), the EXTERNAL-IP will show `<pending>` because there is no cloud provider to create a real load balancer. This is expected.
 
@@ -230,6 +231,13 @@ In a real cloud cluster, the EXTERNAL-IP would be a public IP address or hostnam
 
 **Verify:** What does the EXTERNAL-IP column show? Why is it `<pending>` on a local cluster?
 
+  - The EXTERNAL-IP column shows the public or external IP address assigned to a Kubernetes service, allowing external traffic to reach it. It shows <pending> on a local cluster (like Minikube or Kind) because there is no cloud provider load balancer available to automatically provision and assign an external IP address.
+  - Why <pending> on a Local Cluster?
+      - No Load Balancer Provider: Services of type LoadBalancer depend on external infrastructure, such as cloud providers (AWS, GCP, Azure), to assign an IP. Local environments lack this component by default.
+      - Missing Controller: Local clusters lack a "cloud controller manager" to manage the external IP request.
+  - NodePort: Use type: NodePort instead of LoadBalancer to expose the service on a specific port on your node IP.
+  - Port-Forwarding: Use kubectl port-forward to access the service directly.
+    
 ---
 
 ### Task 6: Understand the Service Types Side by Side
@@ -238,6 +246,7 @@ Check all three services:
 ```bash
 kubectl get services -o wide
 ```
+<img width="954" height="118" alt="image" src="https://github.com/user-attachments/assets/aa908b4e-0c84-4f09-8d53-8a98258c2ec1" />
 
 Compare them:
 
@@ -255,11 +264,19 @@ Verify this:
 ```bash
 kubectl describe service web-app-loadbalancer
 ```
+<img width="890" height="315" alt="image" src="https://github.com/user-attachments/assets/fe579e7e-60d7-4cb8-9904-c0b691197b18" />
 
 You should see all three: a ClusterIP, a NodePort, and the LoadBalancer configuration.
 
 **Verify:** Does the LoadBalancer service also have a ClusterIP and NodePort assigned?
 
+  - Yes, a Kubernetes LoadBalancer service automatically has both a ClusterIP and a NodePort assigned to it.
+  - Kubernetes service types build upon each other
+      - `ClusterIP`is the base, providing a stable internal IP address for intra-cluster communication.
+      - `NodePort` builds on ClusterIP, exposing the service on a static port across all nodes' IP addresses, in addition to its ClusterIP.
+      - `LoadBalancer` builds on both, provisioning an external cloud provider load balancer (e.g., AWS ELB, Azure LB, GCP Load Balancer) that routes external traffic to the service via its NodePort and ClusterIP, and ultimately to the pods.
+  - The traffic flow for a LoadBalancer service is `External Client → Cloud Load Balancer → Node IP:NodePort → ClusterIP → Pod`
+     
 ---
 
 ### Task 7: Clean Up
