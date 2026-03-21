@@ -289,10 +289,11 @@ kubectl delete -f loadbalancer-service.yaml
 kubectl get pods
 kubectl get services
 ```
+<img width="741" height="254" alt="image" src="https://github.com/user-attachments/assets/0b3b6f00-9e9e-4b9b-a288-a6223b67f443" />
 
 Only the built-in `kubernetes` service in the default namespace should remain.
 
-**Verify:** Is everything cleaned up?
+**Verify:** Is everything cleaned up? **YES**
 
 ---
 
