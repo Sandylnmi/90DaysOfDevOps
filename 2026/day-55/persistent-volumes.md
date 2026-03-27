@@ -50,7 +50,7 @@ Access modes to know:
 2. Write data to `/data/message.txt`, then delete and recreate the Pod
 3. Check the file — it should contain data from both Pods
 
-**Verify:** Does the file contain data from both the first and second Pod?
+**Verify:** Does the file contain data from both the first and second Pod? - **YES**
 
 <img width="824" height="291" alt="image" src="https://github.com/user-attachments/assets/44af99d0-bf3e-43a9-8179-a94c2cc025f9" />
 <img width="597" height="529" alt="image" src="https://github.com/user-attachments/assets/b8306f1a-c908-43fb-8a3a-7ad7ae17556e" />
@@ -62,7 +62,9 @@ Access modes to know:
 2. Note the provisioner, reclaim policy, and volume binding mode
 3. With dynamic provisioning, developers only create PVCs — the StorageClass handles PV creation automatically
 
-**Verify:** What is the default StorageClass in your cluster?
+<img width="1106" height="285" alt="image" src="https://github.com/user-attachments/assets/b120c273-ae1c-49f2-a702-a7de4c43efc3" />
+
+**Verify:** What is the default StorageClass in your cluster? - **STANDARD**
 
 ---
 
