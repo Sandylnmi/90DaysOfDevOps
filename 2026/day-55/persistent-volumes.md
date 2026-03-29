@@ -71,9 +71,16 @@ Access modes to know:
 ### Task 6: Dynamic Provisioning
 1. Write a PVC manifest that includes `storageClassName: standard` (or your cluster's default)
 2. Apply it — a PV should appear automatically in `kubectl get pv`
+
+<img width="1111" height="301" alt="image" src="https://github.com/user-attachments/assets/95db2b0a-7b2b-4e6a-a261-3c54d9dcaec7" />
+
 3. Use this PVC in a Pod, write data, verify it works
 
+<img width="854" height="402" alt="image" src="https://github.com/user-attachments/assets/6b350390-4540-4226-a99a-1f04ac8274e4" />
+
 **Verify:** How many PVs exist now? Which was manual, which was dynamic?
+
+<img width="1103" height="184" alt="image" src="https://github.com/user-attachments/assets/84b48ebd-49fe-4b22-8710-54466cc300d8" />
 
 ---
 
@@ -83,8 +90,12 @@ Access modes to know:
 3. The dynamic PV is gone (Delete reclaim policy). The manual PV shows `Released` (Retain policy).
 4. Delete the remaining PV manually
 
+<img width="710" height="254" alt="image" src="https://github.com/user-attachments/assets/a74e0915-d7b7-4918-a19c-76715781d3db" />
+
 **Verify:** Which PV was auto-deleted and which was retained? Why?
 
+- `Dynamic PV` was auto deleted because it had `reclaimPolicy: Delete`.
+- `Manual PV` was retained because it had `reclaimPolicy: Retain`.
 ---
 
 ## Hints
