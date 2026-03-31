@@ -47,8 +47,7 @@ Before touching the terminal, research and write short notes on:
   * Terraform and Pulumi are designed for multi-cloud environments, allowing you to manage resources across various providers (AWS, Azure, GCP, etc.) with a single tool and workflow.
 
 4. What does it mean that Terraform is "declarative" and "cloud-agnostic"?
-
-  **Declarative** and **cloud-agnostic** are the two primary pillars that define how Terraform manages infrastructure, making it a popular Infrastructure as Code (IaC) tool.
+   **Declarative** and **cloud-agnostic** are the two primary pillars that define how Terraform manages infrastructure, making it a popular Infrastructure as Code (IaC) tool.
   * `Declarative` means you define the final desired state of your infrastructure (e.g., "I want 3 virtual machines"), and Terraform automatically determines the steps to create it.
   * `Cloud-Agnostic` means Terraform is not tied to a single vendor (like AWS CloudFormation) and can manage resources across multiple providers (AWS, Azure, Google Cloud, Kubernetes) using the same workflow.
   
@@ -76,6 +75,8 @@ choco install terraform
 ```bash
 terraform -version
 ```
+
+<img width="329" height="73" alt="image" src="https://github.com/user-attachments/assets/d73ac4ae-ad1f-4eb0-a30d-6725a0991b96" />
 
 3. Install and configure the AWS CLI:
 ```bash
