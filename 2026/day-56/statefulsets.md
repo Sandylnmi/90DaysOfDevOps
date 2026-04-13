@@ -93,18 +93,28 @@ Each StatefulSet pod gets a DNS name: `<pod-name>.<service-name>.<namespace>.svc
 2. Delete `web-0`: `kubectl delete pod web-0`
 3. Wait for it to come back, then check the data — it should still be "Data from web-0"
 
+<img width="1106" height="183" alt="image" src="https://github.com/user-attachments/assets/6d89161a-96da-4dbe-93cd-c5402a10cfb0" />
+
 The new pod reconnected to the same PVC.
 
-**Verify:** Is the data identical after pod recreation?
+**Verify:** Is the data identical after pod recreation? - **Yes**
 
 ---
 
 ### Task 6: Ordered Scaling
 1. Scale up to 5: `kubectl scale statefulset web --replicas=5` — pods create in order (web-3, then web-4)
+
+<img width="872" height="436" alt="image" src="https://github.com/user-attachments/assets/7c35fc35-7325-4ae5-8d05-e909af3827c9" />
+
 2. Scale down to 3 — pods terminate in reverse order (web-4, then web-3)
+
+<img width="1048" height="296" alt="image" src="https://github.com/user-attachments/assets/47537c61-53e3-4fa5-a29c-e747f9e192dd" />
+
 3. Check `kubectl get pvc` — all five PVCs still exist. Kubernetes keeps them on scale-down so data is preserved if you scale back up.
 
-**Verify:** After scaling down, how many PVCs exist?
+<img width="1109" height="226" alt="image" src="https://github.com/user-attachments/assets/d671beb2-df22-4f8c-996e-2f83e455ef90" />
+
+**Verify:** After scaling down, how many PVCs exist? **5 PVC's**
 
 ---
 
@@ -113,40 +123,8 @@ The new pod reconnected to the same PVC.
 2. Check `kubectl get pvc` — PVCs are still there (safety feature)
 3. Delete PVCs manually
 
-**Verify:** Were PVCs auto-deleted with the StatefulSet?
+<img width="761" height="237" alt="image" src="https://github.com/user-attachments/assets/83d45292-e17b-4d3d-984d-37aebffdb8fa" />
 
----
+**Verify:** Were PVCs auto-deleted with the StatefulSet? -**No**
 
-## Hints
-- `kubectl get sts` is the short name for StatefulSets
-- `serviceName` must match an existing Headless Service
-- Pod DNS: `<pod-name>.<service-name>.<namespace>.svc.cluster.local`
-- PVC naming: `<template-name>-<statefulset-name>-<ordinal>`
-- Pods create in order (0, 1, 2) and terminate in reverse (2, 1, 0)
-- Scaling down does not delete PVCs — data is preserved
-- Deleting a StatefulSet does not delete PVCs — clean up separately
 
----
-
-## Documentation
-Create `day-56-statefulsets.md` with:
-- What StatefulSets are and when to use them vs Deployments
-- The comparison table
-- How Headless Services, stable DNS, and volumeClaimTemplates work
-- Screenshots of pods, PVCs, and DNS resolution
-
----
-
-## Submission
-1. Add `day-56-statefulsets.md` to `2026/day-56/`
-2. Commit and push to your fork
-
----
-
-## Learn in Public
-Share on LinkedIn: "Learned Kubernetes StatefulSets today. Stable pod names, per-pod DNS, and persistent storage that survives deletion — now I understand why databases need StatefulSets."
-
-`#90DaysOfDevOps` `#DevOpsKaJosh` `#TrainWithShubham`
-
-Happy Learning!
-**TrainWithShubham**
