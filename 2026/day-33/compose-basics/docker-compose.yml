@@ -1,0 +1,7 @@
+services:
+  web-service:
+    container_name: my-nginx
+    image: nginx:latest
+    ports:
+      - "8084:80"
+
