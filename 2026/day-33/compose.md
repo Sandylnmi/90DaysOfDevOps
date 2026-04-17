@@ -80,6 +80,8 @@ Practice and document these:
 2. Create a `.env` file and reference variables from it in your compose file
 3. Verify the variables are being picked up
 
+<img width="1104" height="528" alt="image" src="https://github.com/user-attachments/assets/649640a5-65ed-4c68-a0e6-99870eade7ee" />
+
 ---
 
 ## Hints
