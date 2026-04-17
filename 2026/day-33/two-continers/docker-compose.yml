@@ -1,0 +1,61 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+      #environment:
+      #MYSQL_DATABASE: wordpress
+      #MYSQL_USER: wordpress
+      #MYSQL_PASSWORD: wordpress
+      #MYSQL_ROOT_PASSWORD: root
+    env_file:
+      - path: ./mysql.env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      interval: 10s
+      retries: 5
+      start_period: 30s
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql    
+    networks:
+      - wp-net
+
+  wordpress:  
+    image: wordpress:latest
+    container_name: wordpress
+    depends_on: 
+      mysql:
+        condition: service_healthy
+          #environment:
+          # WORDPRESS_DB_HOST: mysql:3306
+          #WORDPRESS_DB_USER: wordpress
+          #WORDPRESS_DB_PASSWORD: wordpress
+          #WORDPRESS_DB_NAME: wordpress      
+    env_file:
+      - path: ./wordpress.env
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - data:/var/www/html
+    networks:
+      - wp-net
+    develop:
+      watch:
+        - action: sync
+          path: ./wp-content/themes 
+          target: /var/www/html/wp-content/themes 
+          ignore:
+            - node_modules/
+        - action: sync
+          path: ./wp-content/plugins
+          target: /var/www/html/wp-content/plugins
+volumes:
+    mysql:
+    data:    
+
+networks:
+    wp-net:
+      driver: bridge    
