@@ -81,6 +81,7 @@ Practice and document these:
 3. Verify the variables are being picked up
 
 <img width="1104" height="528" alt="image" src="https://github.com/user-attachments/assets/649640a5-65ed-4c68-a0e6-99870eade7ee" />
+<img width="1101" height="271" alt="image" src="https://github.com/user-attachments/assets/e78e53fc-2371-4a10-b971-a95b267323fb" />
 
 ---
 
